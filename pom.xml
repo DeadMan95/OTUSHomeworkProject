@@ -40,6 +40,11 @@
             <artifactId>selenium-java</artifactId>
             <version>3.141.59</version>
         </dependency>
+        <dependency>
+            <groupId>org.aeonbits.owner</groupId>
+            <artifactId>owner</artifactId>
+            <version>1.0.8</version>
+        </dependency>
     </dependencies>
 
 </project>
