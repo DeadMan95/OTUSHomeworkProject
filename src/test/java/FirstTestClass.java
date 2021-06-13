@@ -137,9 +137,9 @@ public class FirstTestClass {
         WebElement message = driver.findElement(messageLocator);
         String messageText = message.findElement(By.xpath(messageTextXPath)).getText();
         Assert.assertTrue(messageText.contains(productName.split(",")[0]), "Проверка сообщения о добавлении товара в список вравнения");
-        wait.until(ExpectedConditions.visibilityOfElementLocated(messageLocator));
-        wait.until(ExpectedConditions.elementToBeClickable(messageLocator));
-        message.findElement(By.xpath(compareButtonXPath)).click();
+        WebElement elem = message.findElement(By.xpath(compareButtonXPath));
+        wait.until(ExpectedConditions.elementToBeClickable(elem));
+        elem.click();
     }
 
     private String addToCompare(String product) {
