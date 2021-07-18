@@ -1,5 +1,6 @@
 package utilities;
 
+import io.qameta.allure.Step;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.WebDriver;
@@ -15,6 +16,7 @@ public class Setup {
     protected WebDriverWait wait;
 
     @BeforeClass
+    @Step("Initialize webdriver")
     public void startUp() {
         driver = WebDriverFactory.createDriver(WebDriverType.CHROME);
         //driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
@@ -24,12 +26,14 @@ public class Setup {
     }
 
     @AfterClass
+    @Step("Close webdriver")
     public void closeUp() {
         if (driver != null) driver.quit();
         logger.info("Driver closed!");
     }
 
     @AfterMethod
+    @Step("Clean browser cookies")
     public void clean() {
         driver.manage().deleteAllCookies();
     }

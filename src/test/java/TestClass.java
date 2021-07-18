@@ -1,12 +1,17 @@
 import interfaces.AboutMePageConfig;
 import interfaces.TestDataConfig;
+import io.qameta.allure.*;
 import org.aeonbits.owner.ConfigFactory;
 import org.openqa.selenium.By;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 import pages.AboutMePage;
 import pages.MainPage;
 import utilities.Setup;
+
+import java.io.ByteArrayInputStream;
 
 public class TestClass extends Setup {
 
@@ -29,6 +34,11 @@ public class TestClass extends Setup {
     private final String PASSWORD = td.password();
 
     @Test
+    @Step("Update user parameters")
+    @Epic("OTUS")
+    @Feature("Update")
+    @Story("Profile update")
+    @Description("Some description")
     public void testOTUS() {
         MainPage mainPage = new MainPage(driver, wait);
         mainPage.open().goToLoginPage().logIn(LOGIN, PASSWORD);
@@ -38,12 +48,14 @@ public class TestClass extends Setup {
         aboutMePage.deleteContacts();
         aboutMePage.setContact(SKYPE_CONTACT_TYPE, SKYPE_CONTACT_VALUE);
         aboutMePage.setContact(VK_CONTACT_TYPE, VK_CONTACT_VALUE);
+        Allure.addAttachment("Screenshot 1", new ByteArrayInputStream(((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES)));
         aboutMePage.saveAndQuit();
         clean();
         closeUp();
         startUp();
         mainPage = new MainPage(driver, wait);
         mainPage.open().goToLoginPage().logIn(LOGIN, PASSWORD);
+        Allure.addAttachment("Screenshot 2", new ByteArrayInputStream(((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES)));
         aboutMePage = new AboutMePage(driver, wait);
         aboutMePage.open();
 
